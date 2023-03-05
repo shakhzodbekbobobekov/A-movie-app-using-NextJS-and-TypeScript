@@ -1,0 +1,26 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "nodejs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shakhzodbekbobobekov/nodejs-practise.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Shaxzodbek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shakhzodbekbobobekov/nodejs-practise/issues"
+  },
+  "homepage": "https://github.com/shakhzodbekbobobekov/nodejs-practise#readme",
+  "dependencies": {
+    "nodemon": "^2.0.21"
+  }
+}

@@ -1,12 +1,12 @@
 const http = require("http");
 
-const server = http.createServer((request, response) => {
-  console.log(request.url);
+const server = http.createServer((request, responsive) => {
+  console.log(request.url); 
 
-  response.write("<h1>Hello HTTP request</h1>");
-  response.end();
+  responsive.write("<h1>Hello world 4 </h1>");
+  responsive.end(); 
 });
 
 server.listen(3000, () => {
-  console.log("server has been started on port 3000");
+  console.log("sever has been started on port 3000");
 });
