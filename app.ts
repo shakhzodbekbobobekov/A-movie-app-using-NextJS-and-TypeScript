@@ -1,13 +1,21 @@
-interface ICar {
-    names: string;
-    dataOfMade: number;
-    numberGet?:number | string;
+interface Icar {
+    name: string;
+    color: string;
+    isBallon: number;
+    speed: ISpeedCar;
+    price:IPriceCar;
 }
 
-const getMyNewCar = (car: ICar):string => {
-    return `My car name is ${car.names}, it is data of made ${car.dataOfMade}`
+
+interface ISpeedCar {
+    max: number;
+    min: number
 }
 
+interface IPriceCar {
+    total: string;
+    credit: string;
+    discount: number;
+}
 
-
-console.log(getMyNewCar({names:"Gentra", dataOfMade:2023}))
+const car:Icar
