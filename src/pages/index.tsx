@@ -1,7 +1,13 @@
 import Head from "next/head";
 import { Header } from "src/components";
+import { GetServerSideProps } from "next";
+import { API_REQUEST } from '../services/api.services';
 
-export default function Home() {
+export default function Home(props:HomeProps): JSX.Element {
+  console.log(props);
+  // useEffect(()=> {
+  //   fetch(API_REQUEST.trending).then((data)=>data.json()).then(res=> console.log(res))
+  // },[])
   return (
     <div className="relative h-[250vh] ">
       <Head>
@@ -14,4 +20,17 @@ export default function Home() {
       <main></main>
     </div>
   );
+}
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const trending = await fetch(API_REQUEST.trending).then(res=> res.json())
+
+  return {
+    props: {
+      trending,
+    },
+  };
+};
+
+interface HomeProps {
+  trending: any;
 }
