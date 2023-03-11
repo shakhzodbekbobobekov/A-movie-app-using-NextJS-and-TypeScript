@@ -1,18 +1,56 @@
-import Image from 'next/image';
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
+import { BiBellMinus } from "react-icons/bi";
 const Header = () => {
-  return <header>
-    <div className='flex items-center space-x-2 md:space-x-10' >
-      <Image className={"cursor-pointer object-contain"}  src={"/logo.svg"}  alt={"logo img"} width={56} height={56} />
+  const [scrolled, setScrolled] = useState(false);
 
-      <ul className='space-x-4 md:flex hidden' >
-        <li className='navLink'>Home</li>
-        <li className='navLink'>Movies</li>
-        <li className='navLink'>TV Shows</li>
-        <li className='navLink'>New</li>
-        <li className='navLink'>Popular</li>
-      </ul>
-    </div>
-  </header> 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return ()=> window.removeEventListener("scroll", handleScroll)
+  }, []);
+
+  return (
+    <>
+      <header className={`${scrolled && "bg-red-500"}`}>
+        <div className="flex items-center space-x-2 md:space-x-10">
+          <Image
+            className={"cursor-pointer object-contain"}
+            src={"/logo.svg"}
+            alt={"logo img"}
+            width={56}
+            height={56}
+          />
+
+          <ul className="space-x-4 md:flex hidden">
+            <li className="navLink">Home</li>
+            <li className="navLink">Movies</li>
+            <li className="navLink">TV Shows</li>
+            <li className="navLink">New</li>
+            <li className="navLink">Popular</li>
+          </ul>
+        </div>
+        <div className="flex items-center text-sm font-light space-x-4 ">
+          <AiOutlineSearch className="h-6 w-6 cursor-pointer" />
+          <p className="hidden lg:flex">Kids</p>
+          <BiBellMinus className="h-6 w-6 cursor-pointer" />
+          <Link href={"/account"}>
+            <AiOutlineUser className="h-6 w-6 cursor-pointer" />
+          </Link>
+        </div>
+      </header>
+
+     
+    </>
+  );
 };
 
 export default Header;
