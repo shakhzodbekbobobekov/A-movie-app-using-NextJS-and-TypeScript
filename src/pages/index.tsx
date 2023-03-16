@@ -1,12 +1,10 @@
 import Head from "next/head";
-import { Header } from "src/components";
+import { Header, Hero, Row } from "src/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "../services/api.services";
 import { IMovie } from "../interface/app.interface";
 
 export default function Home({ trending }: HomeProps): JSX.Element {
-  console.log(trending);
-
   return (
     <div className="relative h-[250vh] ">
       <Head>
@@ -16,7 +14,9 @@ export default function Home({ trending }: HomeProps): JSX.Element {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <Header />
-      <main></main>
+      <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
+        <Hero trending={trending} />
+      </main>
     </div>
   );
 }
