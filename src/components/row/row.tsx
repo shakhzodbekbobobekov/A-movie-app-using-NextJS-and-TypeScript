@@ -26,11 +26,10 @@ const Row = ({ title, movies, isBig = false }: RowProps) => {
   };
 
   return (
-    <div className=" h-[400px] space-y-1 md:space-y-2 md:h-[550px] ">
-      <h2
-        className="w-56 cursor-pointer text-sm md:text-2xl font-semibold text-[#e5e5e5]
-       hover:text-white transition duration-200 "
-      >
+    <div className="md:h-[600px] space-y-3 md:space-y-2 ">
+
+      
+      <h2 className="w-56 cursor-pointer text-lg mt-4 md:mt-0 md:text-2xl font-semibold text-[#e5e5e5] hover:text-white transition duration-200 ">
         {title}
       </h2>
 
@@ -47,7 +46,7 @@ const Row = ({ title, movies, isBig = false }: RowProps) => {
           ref={carouselRef}
           className={`flex ${
             !isBig && " space-x-1  md:space-x-4 "
-          } items-start scrollbar-hideoverflow-hidden  overflow-x-scroll`}
+          } items-start scrollbar-hide overflow-hidden  overflow-x-scroll`}
         >
           {movies.map((movie) => {
             return <Thumbnail key={movie.id} movie={movie} isBig={isBig} />;

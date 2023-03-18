@@ -7,7 +7,7 @@ const Thumbnail = ({ movie, isBig = false }: ThumbnailProps) => {
     <div
       className={`relative ${
         isBig
-          ? "h-[440px] md:h-[600px] min-w-[350px]  md:min-w-[450px]"
+          ? "h-[440px] md:h-[500px] min-w-[350px]  md:min-w-[470px]"
           : "h-[330px] md:h-[440px] min-w-[200px]  md:min-w-[290px]"
       }   transition duration-220  md:hover:scale-110 cursor-pointer ease-out  `}
     >
@@ -30,6 +30,7 @@ const Thumbnail = ({ movie, isBig = false }: ThumbnailProps) => {
           />
           <p>({movie.vote_count})</p>
         </div>
+
         <h1 className="text-xl font-bold md:text-3xl lg:text:-4xl">
           {movie?.title || movie?.name}
         </h1>

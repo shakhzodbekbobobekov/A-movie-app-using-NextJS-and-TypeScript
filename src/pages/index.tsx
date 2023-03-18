@@ -4,7 +4,16 @@ import { GetServerSideProps } from "next";
 import { API_REQUEST } from "../services/api.services";
 import { IMovie } from "../interface/app.interface";
 
-export default function Home({ trending, topRated , tvTopRated}: HomeProps): JSX.Element {
+export default function Home({
+  trending,
+  topRated,
+  tvTopRated,
+  popular,
+  comedy,
+  history,
+  documentary,
+  family,
+}: HomeProps): JSX.Element {
   console.log(topRated);
   return (
     <div className="relative ">
@@ -20,6 +29,11 @@ export default function Home({ trending, topRated , tvTopRated}: HomeProps): JSX
         <section>
           <Row title="Top Rated" movies={topRated} />
           <Row title="Tv Show" movies={tvTopRated} isBig={true} />
+          <Row title="Popular" movies={popular} isBig={!true} />
+          <Row title="Documentary" movies={documentary.reverse()} isBig={true} />
+          <Row title="Comedy" movies={comedy} isBig={!true} />
+          <Row title="Family" movies={family.reverse()} isBig={true} />
+          <Row title="History" movies={history} isBig={!true} />
         </section>
       </main>
     </div>
@@ -31,18 +45,33 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const tvTopRated = await fetch(API_REQUEST.tv_top_rated).then((res) =>
     res.json()
   );
+  const popular = await fetch(API_REQUEST.popular).then((res) => res.json());
+  const documentary = await fetch(API_REQUEST.documentary).then((res) => res.json());
+  const comedy = await fetch(API_REQUEST.comedy).then((res) => res.json());
+  const family = await fetch(API_REQUEST.family).then((res) => res.json());
+  const history = await fetch(API_REQUEST.history).then((res) => res.json());
 
   return {
     props: {
       trending: trending.results,
       topRated: topRated.results,
       tvTopRated: tvTopRated.results,
+      popular: popular.results,
+      documentary: documentary.results,
+      comedy: comedy.results,
+      family: family.results,
+      history: history.results,
     },
   };
 };
 
 interface HomeProps {
   trending: IMovie[];
+  popular: IMovie[];
   topRated: IMovie[];
   tvTopRated: IMovie[];
+  documentary: IMovie[];
+  comedy: IMovie[];
+  family: IMovie[];
+  history: IMovie[];
 }
