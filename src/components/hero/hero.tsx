@@ -11,7 +11,6 @@ const Hero = ({ trending }: HeroProps): JSX.Element => {
 
   useEffect(() => {
     const randomMovie = trending[Math.floor(Math.random() * trending.length)];
-    console.log(randomMovie);
     setMovie(randomMovie);
   }, [trending]);
 
@@ -20,13 +19,13 @@ const Hero = ({ trending }: HeroProps): JSX.Element => {
       <div className="absolute top-0 left-0 -z-10 h-[95vh] w-full">
         <Image
           src={`${image_base}${movie?.backdrop_path || movie?.poster_path}`}
-          alt={movie.name || movie?.title}
+          alt={movie.name}
           fill
           className="object-cover"
         />
       </div>
 
-      <div className="py-[4px] px-[8px] rounded-bl-[8px] rounded-tr-[8px] text-center bg-[#1d1d1d]/50 inline-block w-[100px]  ">
+      <div className="py-[4px] px-[8px] rounded-bl-[8px] rounded-tr-[8px] text-center bg-[#e5e5e5]/50 inline-block w-[100px]  ">
         {movie.media_type}
       </div>
 
@@ -50,12 +49,9 @@ const Hero = ({ trending }: HeroProps): JSX.Element => {
         <button className=" flex justify-center items-center space-x-2 bg-transparent border-solid border-2 w-[200px] h-[56px]   rounded-full ">
           <BsPlay className="h-5 w-5 md:h-8 md:w-8" /> Watch now
         </button>
-        
       </div>
     </div>
   );
 };
 
 export default Hero;
-
-

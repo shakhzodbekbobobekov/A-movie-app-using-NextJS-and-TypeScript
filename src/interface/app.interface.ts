@@ -7,6 +7,7 @@ export interface IMovie {
   original_language: string;
   original_name: string;
   overview: string;
+  movie: string[];
   poster_path: string;
   media_type: string;
   genre_ids: number[];
