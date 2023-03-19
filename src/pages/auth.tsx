@@ -51,7 +51,7 @@ function auth() {
         height={70}
       />
 
-      <div className="relative mt-24 space-y-8 bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14">
+      <div className="relative mt-24 space-y-8 bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-10">
         <h1 className="text-4xl font-semibold">
           {auth === "signup" ? "Sign Up" : "Sign In"}
         </h1>
