@@ -14,7 +14,6 @@ export default function Home({
   documentary,
   family,
 }: HomeProps): JSX.Element {
-  console.log(topRated);
   return (
     <div className="relative ">
       <Head>
