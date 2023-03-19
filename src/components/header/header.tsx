@@ -25,7 +25,7 @@ const Header = () => {
           <Image
             className={"cursor-pointer object-contain"}
             src={"/logo.svg"}
-            alt={"logo img"}
+            alt={"logo"}
             width={56}
             height={56}
           />

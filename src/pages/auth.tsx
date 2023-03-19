@@ -1,7 +1,14 @@
 import Head from "next/head";
-import React from "react";
+import Image from "next/image";
+import { useState } from "react";
 
 function auth() {
+  const [auth, setAuth] = useState<"signup" | "signin">("signin");
+
+  const toggleAuth = (state: "signup" | "signin") => {
+    setAuth(state);
+  };
+
   return (
     <>
       <Head>
@@ -10,6 +17,61 @@ function auth() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Image
+        className={" absolute let-4 top-4 cursor-pointer object-contain"}
+        src={"/logo.svg"}
+        alt={"logo"}
+        width={70}
+        height={70}
+      />
+
+      <form className="relative mt-24 space-y-8 bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:mx-14">
+        <h1 className="text-4xl font-semibold">
+          {auth === "signup" ? "Sign Up" : "Sign In"}
+        </h1>
+        <div className="space-y-4">
+          <label className="inline-block w-full">
+            <input type="text" className="input " placeholder="Email" />
+          </label>
+          <label className="inline-block w-full">
+            <input type="password" className="input " placeholder="Password" />
+          </label>
+        </div>
+
+        {auth === "signin" ? (
+          <button className="w-full bg-red-500 py-3 font-semibold">
+            Sig In
+          </button>
+        ) : (
+          <button className="w-full bg-red-500 py-3 font-semibold">
+            Sig Up
+          </button>
+        )}
+
+        {auth === "signup" ? (
+          <div className="text-[gray]">
+            Already have account?{" "}
+            <button
+              onClick={() => toggleAuth("signin")}
+              type="button"
+              className="text-white hover:underline"
+            >
+              Sign In
+            </button>
+          </div>
+        ) : (
+          <div className="text-[gray]">
+            Not yet account?{" "}
+            <button
+              onClick={() => toggleAuth("signup")}
+              type="button"
+              className="text-white hover:underline"
+            >
+              Sign Up Now
+            </button>
+          </div>
+        )}
+      </form>
     </>
   );
 }
