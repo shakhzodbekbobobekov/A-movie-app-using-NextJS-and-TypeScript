@@ -6,7 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../context/auth.context";
 
-function auth() {
+function Auth() {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
   // const { error, isLoading, logout, signIn, signUp } = useContext(AuthContext);
   const { error, isLoading, logout, signIn, signUp } = useContext(AuthContext);
@@ -16,9 +16,9 @@ function auth() {
 
   const onSubmit = (formData: { email: string; password: string }) => {
     if (auth === "signup") {
-      signUp(formData.email, formData.password)
+      signUp(formData.email, formData.password);
     } else {
-      signIn(formData.email, formData.password)
+      signIn(formData.email, formData.password);
     }
   };
 
@@ -120,4 +120,4 @@ function auth() {
   );
 }
 
-export default auth;
+export default Auth;

@@ -1,7 +1,8 @@
-import { User } from "firebase/auth";
-import { createContext, ReactNode, useMemo } from "react";
+import { User, onAuthStateChanged } from "firebase/auth";
+import { createContext, ReactNode, useMemo, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/useAuth";
-
+import { useRouter } from "next/router";
+import { auth } from 'src/firebase';
 interface AuthContextState {
   user: User | null;
   error: string;
@@ -21,7 +22,9 @@ export const AuthContext = createContext<AuthContextState>({
 });
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
-  const { error, isLoading, logout, signIn, signUp, user } = useAuth();
+  const [initialLoader, setInitialLoader] = useState<boolean>(true);
+  const { error, isLoading, logout, signIn, signUp, user, setUser } = useAuth();
+  const router = useRouter();
 
   const value = useMemo(
     () => ({
@@ -37,7 +40,26 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     [user, isLoading, error]
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  useEffect(
+    () =>
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null)
+          router.push("/auth");
+        }
+        setInitialLoader(false);
+      }),
+    //eslint-disable-next-line
+    []
+  );
+
+  return (
+    <AuthContext.Provider value={value}>
+      {!initialLoader && children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContextProvider;
