@@ -23,7 +23,7 @@ export const AuthContext = createContext<AuthContextState>({
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [initialLoader, setInitialLoader] = useState<boolean>(true);
-  const { error, isLoading, logout, signIn, signUp, user, setUser } = useAuth();
+  const { error, isLoading, logout, signIn, signUp, user, setUser ,setIsLoading} = useAuth();
   const router = useRouter();
 
   const value = useMemo(
@@ -44,12 +44,15 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     () =>
       onAuthStateChanged(auth, (user) => {
         if (user) {
+          setIsLoading(false)
           setUser(user);
         } else {
           setUser(null)
+          setIsLoading(true)
           router.push("/auth");
         }
         setInitialLoader(false);
+        setIsLoading(false)
       }),
     //eslint-disable-next-line
     []
@@ -57,7 +60,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!initialLoader && children}
+      {!initialLoader ? children : <p className=" flex justify-center items-center h-[100vh]  text-red-500" >Loading.....</p>}
     </AuthContext.Provider>
   );
 };

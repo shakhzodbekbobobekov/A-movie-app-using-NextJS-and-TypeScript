@@ -49,5 +49,5 @@ export const useAuth = () => {
       .finally(() => setIsLoading(false));
   };
 
-  return { error, isLoading, user, signIn, signUp, logout , setUser};
+  return { error, isLoading, user, signIn, signUp, logout , setUser, setIsLoading};
 };

@@ -3,6 +3,8 @@ import { Header, Hero, Row } from "src/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "../services/api.services";
 import { IMovie } from "../interface/app.interface";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 
 export default function Home({
   trending,
@@ -14,7 +16,10 @@ export default function Home({
   documentary,
   family,
 }: HomeProps): JSX.Element {
-  return (
+  const { isLoading } = useContext(AuthContext)
+  if (isLoading) return <>{null}</>;
+
+  return ( 
     <div className="relative ">
       <Head>
         <title>Create Next App</title>
@@ -29,7 +34,11 @@ export default function Home({
           <Row title="Top Rated" movies={topRated} />
           <Row title="Tv Show" movies={tvTopRated} isBig={true} />
           <Row title="Popular" movies={popular} isBig={!true} />
-          <Row title="Documentary" movies={documentary.reverse()} isBig={true} />
+          <Row
+            title="Documentary"
+            movies={documentary.reverse()}
+            isBig={true}
+          />
           <Row title="Comedy" movies={comedy} isBig={!true} />
           <Row title="Family" movies={family.reverse()} isBig={true} />
           <Row title="History" movies={history} isBig={!true} />
@@ -45,7 +54,9 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     res.json()
   );
   const popular = await fetch(API_REQUEST.popular).then((res) => res.json());
-  const documentary = await fetch(API_REQUEST.documentary).then((res) => res.json());
+  const documentary = await fetch(API_REQUEST.documentary).then((res) =>
+    res.json()
+  );
   const comedy = await fetch(API_REQUEST.comedy).then((res) => res.json());
   const family = await fetch(API_REQUEST.family).then((res) => res.json());
   const history = await fetch(API_REQUEST.history).then((res) => res.json());
