@@ -2,7 +2,7 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { createContext, ReactNode, useMemo, useEffect, useState } from "react";
 import { useAuth } from "src/hooks/useAuth";
 import { useRouter } from "next/router";
-import { auth } from 'src/firebase';
+import { auth } from "src/firebase";
 interface AuthContextState {
   user: User | null;
   error: string;
@@ -23,7 +23,16 @@ export const AuthContext = createContext<AuthContextState>({
 
 const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [initialLoader, setInitialLoader] = useState<boolean>(true);
-  const { error, isLoading, logout, signIn, signUp, user, setUser ,setIsLoading} = useAuth();
+  const {
+    error,
+    isLoading,
+    logout,
+    signIn,
+    signUp,
+    user,
+    setUser,
+    setIsLoading,
+  } = useAuth();
   const router = useRouter();
 
   const value = useMemo(
@@ -44,15 +53,15 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     () =>
       onAuthStateChanged(auth, (user) => {
         if (user) {
-          setIsLoading(false)
+          setIsLoading(false);
           setUser(user);
         } else {
-          setUser(null)
-          setIsLoading(true)
+          setUser(null);
+          setIsLoading(true);
           router.push("/auth");
         }
         setInitialLoader(false);
-        setIsLoading(false)
+        setIsLoading(false);
       }),
     //eslint-disable-next-line
     []
@@ -60,7 +69,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!initialLoader ? children : <p className=" flex justify-center items-center h-[100vh]  text-red-500" >Loading.....</p>}
+      {!initialLoader ? children : "Loading..."}
     </AuthContext.Provider>
   );
 };
