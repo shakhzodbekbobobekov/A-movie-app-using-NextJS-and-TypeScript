@@ -7,6 +7,7 @@ import { BsPlay } from "react-icons/bs";
 import ReactStars from "react-stars";
 
 const Hero = ({ trending }: HeroProps): JSX.Element => {
+  // const {setModal} from useInfoStore()
   const [movie, setMovie] = useState<IMovie>({} as IMovie);
 
   useEffect(() => {

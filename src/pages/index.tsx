@@ -1,10 +1,12 @@
 import Head from "next/head";
-import { Header, Hero, Row } from "src/components";
+import { Header, Hero, Row, Modal } from "src/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "../services/api.services";
 import { IMovie } from "../interface/app.interface";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import { useInfoStore } from "../store/index";
+// import {} from
 
 export default function Home({
   trending,
@@ -16,10 +18,12 @@ export default function Home({
   documentary,
   family,
 }: HomeProps): JSX.Element {
-  const { isLoading } = useContext(AuthContext)
+  const { isLoading } = useContext(AuthContext);
   if (isLoading) return <>{null}</>;
 
-  return ( 
+  const { setModal, modal } = useInfoStore();
+  console.log(modal);
+  return (
     <div className="relative ">
       <Head>
         <title>Create Next App</title>
@@ -44,22 +48,30 @@ export default function Home({
           <Row title="History" movies={history} isBig={!true} />
         </section>
       </main>
+      {/* {modal && <Modal />} */}
     </div>
   );
 }
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const trending = await fetch(API_REQUEST.trending).then((res) => res.json());
-  const topRated = await fetch(API_REQUEST.top_rated).then((res) => res.json());
-  const tvTopRated = await fetch(API_REQUEST.tv_top_rated).then((res) =>
-    res.json()
-  );
-  const popular = await fetch(API_REQUEST.popular).then((res) => res.json());
-  const documentary = await fetch(API_REQUEST.documentary).then((res) =>
-    res.json()
-  );
-  const comedy = await fetch(API_REQUEST.comedy).then((res) => res.json());
-  const family = await fetch(API_REQUEST.family).then((res) => res.json());
-  const history = await fetch(API_REQUEST.history).then((res) => res.json());
+  const [
+    trending,
+    topRated,
+    tvTopRated,
+    popular,
+    documentary,
+    comedy,
+    family,
+    history,
+  ] = await Promise.all([
+    fetch(API_REQUEST.trending).then((res) => res.json()),
+    fetch(API_REQUEST.top_rated).then((res) => res.json()),
+    fetch(API_REQUEST.tv_top_rated).then((res) => res.json()),
+    fetch(API_REQUEST.popular).then((res) => res.json()),
+    fetch(API_REQUEST.documentary).then((res) => res.json()),
+    fetch(API_REQUEST.comedy).then((res) => res.json()),
+    fetch(API_REQUEST.family).then((res) => res.json()),
+    fetch(API_REQUEST.history).then((res) => res.json()),
+  ]);
 
   return {
     props: {
