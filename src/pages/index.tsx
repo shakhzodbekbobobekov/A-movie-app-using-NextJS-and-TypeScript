@@ -48,7 +48,7 @@ export default function Home({
           <Row title="History" movies={history} isBig={!true} />
         </section>
       </main>
-      {/* {modal && <Modal />} */}
+      {modal && <Modal />}
     </div>
   );
 }

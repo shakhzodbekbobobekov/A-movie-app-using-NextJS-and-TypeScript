@@ -5,15 +5,21 @@ import Image from "next/image";
 import { image_base } from "src/helpers/constants";
 import { BsPlay } from "react-icons/bs";
 import ReactStars from "react-stars";
+import { useInfoStore } from '../../store/index';
 
 const Hero = ({ trending }: HeroProps): JSX.Element => {
-  // const {setModal} from useInfoStore()
+  const {setModal, setCurrentMovie} = useInfoStore()
   const [movie, setMovie] = useState<IMovie>({} as IMovie);
 
   useEffect(() => {
     const randomMovie = trending[Math.floor(Math.random() * trending.length)];
     setMovie(randomMovie);
   }, [trending]);
+
+  const handleCurrentMovie =()=> {
+    setModal(true)
+    setCurrentMovie(movie)
+  }
 
   return (
     <div className="flex flex-col space-y-2 py-20 mp:space-y-4 lg:h-[65vh] lg:pb-12 lg:center  ">
@@ -47,7 +53,7 @@ const Hero = ({ trending }: HeroProps): JSX.Element => {
         {movie?.overview?.slice(0, 150)}...
       </p>
       <div>
-        <button className=" flex justify-center items-center space-x-2 bg-transparent border-solid border-2 w-[200px] h-[56px]   rounded-full ">
+        <button onClick={handleCurrentMovie} className=" flex justify-center items-center space-x-2 bg-transparent border-solid border-2 w-[200px] h-[56px]   rounded-full ">
           <BsPlay className="h-5 w-5 md:h-8 md:w-8" /> Watch now
         </button>
       </div>
